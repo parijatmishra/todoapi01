@@ -27,7 +27,7 @@ Command:
 
     curl localhost:8080
 
-Outout:
+Output:
 
     Greetings from Spring Boot!
 
