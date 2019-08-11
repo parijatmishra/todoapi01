@@ -18,6 +18,12 @@ public class Application {
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
+            System.out.println("Beans configured:");
+            final String[] names = ctx.getBeanDefinitionNames();
+            Arrays.sort(names);
+            for (String s : names) {
+                System.out.println(s + ":" + ctx.getType(s).getCanonicalName());
+            }
         };
     }
 }
