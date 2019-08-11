@@ -70,5 +70,6 @@ task integrationTest(type: Test) {
     shouldRunAfter test
 }
 
-// If we want "gradle check" to run both "test" and "integrationTest" tasks
-check.dependsOn integrationTest
+// If we want "gradle check" to run both "test" and "integrationTest" tasks -- we don't, because check is run
+// as part of build, and we don't want to run integration tests at that time.
+// check.dependsOn integrationTest

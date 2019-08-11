@@ -9,7 +9,7 @@ JSON API+server for TODO CRUD operations.
 
 ## Build
 
-Compile, run unit tests and generate "uberJar" aka "bootJar":
+The `build` task compiles application and test source code, runs unit tests, and generates and "uberJar" aka "bootJar":
 
     ./gradlew build
 
@@ -47,26 +47,19 @@ Or, better, install [httpie](https://httpie.org/). Call API:
 
 ## Test
 
-Run both unit and integration test (see note for integration tests):
-
-    `./gradlew check`
-
 ### Unit Tests
 
-Run tests in the `src/test/java` durectory:
+The `test` task runs unit tests (those in the `src/test/java` directory):
 
     ./gradlew test [--info]
     
-Test results are generated as HTML files in folder:
-
-    build/reports/tests/test/
+Test results are generated as HTML files in the `build/reports/tests/test/` folder.
 
 ### Integration Tests
 
-Run tests in the `src/integrationTest/java` directory:
+The `integrationTest` task runs tests in the `src/integrationTest/java` directory:
 
     ./gradlew integrationTest [--info]
 
-Test results are generated as HTML files in folder:
+Test results are generated as HTML files in the `build/reports/tests/integrationTest` folder.
 
-    build/reports/tests/integrationTest
