@@ -20,7 +20,15 @@ Replace `0.1.0` with the current version.
 
 ## Test
 
-### Basic
+### Unit Tests
+
+    ./gradlew test [--info]
+    
+Test results are generated as HTML files in folder:
+
+    build/reports/tests/test/
+
+### Manual Testing
 Manually, run the program (above) and:
 
 Command:
@@ -48,6 +56,7 @@ Command:
  Greetings from Spring Boot!
  ```
 
+
+
 ## TODO
-- Unit tests
 - (Mock) Integration tests
