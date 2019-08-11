@@ -7,31 +7,22 @@ JSON API+server for TODO CRUD operations.
 - Supports H2 and MySQL as Databases
 - No authentication - don't leave it running on the internet!
 
-# Development
 ## Build
+
+Compile, run unit tests and generate "uberJar" aka "bootJar":
 
     ./gradlew build
 
 ## Run
 
+Run the bootJar:
+
     java -jar build/libs/todoapi01-0.1.0.jar
+
 
 Replace `0.1.0` with the current version.
 
-## Test
-
-### Unit Tests
-
-    ./gradlew test [--info]
-    
-Test results are generated as HTML files in folder:
-
-    build/reports/tests/test/
-
-### Manual Testing
-Manually, run the program (above) and:
-
-Command:
+Call API using CURL:
 
     curl localhost:8080
 
@@ -39,9 +30,7 @@ Output:
 
     Greetings from Spring Boot!
 
-Or, better, install [httpie](https://httpie.org/).
-
-Command:
+Or, better, install [httpie](https://httpie.org/). Call API:
 
     http GET :8080/
  
@@ -56,7 +45,28 @@ Command:
  Greetings from Spring Boot!
  ```
 
+## Test
 
+Run both unit and integration test (see note for integration tests):
 
-## TODO
-- (Mock) Integration tests
+    `./gradlew check`
+
+### Unit Tests
+
+Run tests in the `src/test/java` durectory:
+
+    ./gradlew test [--info]
+    
+Test results are generated as HTML files in folder:
+
+    build/reports/tests/test/
+
+### Integration Tests
+
+Run tests in the `src/integrationTest/java` directory:
+
+    ./gradlew integrationTest [--info]
+
+Test results are generated as HTML files in folder:
+
+    build/reports/tests/integrationTest

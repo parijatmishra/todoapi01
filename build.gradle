@@ -25,8 +25,50 @@ repositories {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+// Integration Tests via declaring a "source set".  Sets up relevant "configurations".
+// See: https://docs.gradle.org/current/userguide/java_testing.html#sec:configuring_java_integration_tests
+// 
+// Java plugin will automagically set up a 'compileIntegrationTestJava' task that will compile source files
+// under `src/integrationTest/java`.
+// See: https://docs.gradle.org/current/userguide/java_plugin.html#source_sets
+sourceSets {
+    integrationTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+        resources.srcDir file('src/integrationTest/resources')
+    }
+}
+
+configurations {
+    // https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_plugin_and_dependency_management
+    // `integrationTest` compile-time deps include `test` compile-time deps
+    // Note: "implmentation" config is the new name for the "compile" config
+    integrationTestImplementation.extendsFrom testImplementation
+    // `integrationTest` runtime deps include `test` runtime deps
+    integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
+}
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     testCompile("junit:junit")
     testCompile("org.springframework.boot:spring-boot-starter-test")
+    // must declare this if using integrationTest source set
+    integrationTestCompile("junit:junit")
+    integrationTestImplementation("org.springframework.boot:spring-boot-starter-test")
 }
+
+// Define a task to run Integration Tests.  This is not created automatically.
+// See: https://docs.gradle.org/current/userguide/java_testing.html#sec:configuring_java_integration_tests - Ex. 15
+task integrationTest(type: Test) {
+    description = "Runs integration tests."
+    group = "verification"
+
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+
+    // If configuring "gradle check" to run both tests and integration tests, we might want to run these after test
+    shouldRunAfter test
+}
+
+// If we want "gradle check" to run both "test" and "integrationTest" tasks
+check.dependsOn integrationTest
