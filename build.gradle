@@ -52,9 +52,6 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     testCompile("junit:junit")
     testCompile("org.springframework.boot:spring-boot-starter-test")
-    // must declare this if using integrationTest source set
-    integrationTestCompile("junit:junit")
-    integrationTestImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 // Define a task to run Integration Tests.  This is not created automatically.
