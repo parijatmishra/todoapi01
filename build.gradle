@@ -45,13 +45,19 @@ configurations {
     // Note: "implmentation" config is the new name for the "compile" config
     integrationTestImplementation.extendsFrom testImplementation
     // `integrationTest` runtime deps include `test` runtime deps
-    integrationTestRuntime.extendsFrom testRuntime
+    integrationTestRuntime.extendsFrom runtime
 }
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
+
+    runtime("mysql:mysql-connector-java:8.0.17")
+
     testCompile("junit:junit")
     testCompile("org.springframework.boot:spring-boot-starter-test")
+    testRuntime("com.h2database:h2")
+
 }
 
 // Define a task to run Integration Tests.  This is not created automatically.
@@ -65,6 +71,12 @@ task integrationTest(type: Test) {
 
     // If configuring "gradle check" to run both tests and integration tests, we might want to run these after test
     shouldRunAfter test
+
+    // Tests need connection to an external database.  See README.md (Running Integration Tests) on how to set up.
+    def SPRING_DATASOURCE_URL=System.getenv("SPRING_DATASOURCE_URL")
+    // Tell Spring about the external database.
+    // See: https://docs.spring.io/spring-boot/docs/2.1.7.RELEASE/reference/html/boot-features-sql.html#boot-features-connect-to-production-database
+    jvmArgs += "-Dspring.datasource.url=${SPRING_DATASOURCE_URL}"
 }
 
 // If we want "gradle check" to run both "test" and "integrationTest" tasks -- we don't, because check is run

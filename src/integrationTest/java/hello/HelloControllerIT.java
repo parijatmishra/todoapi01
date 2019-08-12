@@ -42,4 +42,10 @@ public class HelloControllerIT {
         final ResponseEntity<String> responseEntity = template.getForEntity(this.base.toString(), String.class);
         assertThat("Unexpected response", responseEntity.getBody(), equalTo("Greetings from Spring Boot!"));
     }
+
+    @Test
+    public void getSelectOne() throws Exception {
+        final ResponseEntity<String> responseEntity = template.getForEntity(this.base.toString() + "/selectOne", String.class);
+        assertThat("Unexpected response", responseEntity.getBody(), equalTo("1"));
+    }
 }
