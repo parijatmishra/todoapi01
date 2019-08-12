@@ -16,8 +16,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.net.URL;
 
 @RunWith(SpringRunner.class)
+// Run an actual web server
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-// We don't want MovkMvc for this test
+// Use TestRestTemplate instead of MockMvc
 public class HelloControllerIT {
 
     // Get the random port assigned to the container - due to the RANDOM_PORT config above
